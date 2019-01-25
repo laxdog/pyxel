@@ -445,21 +445,19 @@ class App:
             pyxel.mouse_y = int((y - self._viewport_top) / self._viewport_scale)
 
     def _update_gamepad(self):
-        for i in range(2):
-            if i == 0:
-                states, count = glfw.get_joystick_buttons(glfw.JOYSTICK_1)
-                offset = pyxel.GAMEPAD_1_A
-            else:
-                states, count = glfw.get_joystick_buttons(glfw.JOYSTICK_2)
-                offset = pyxel.GAMEPAD_2_A
+        for i in range(4):
+            states, count = glfw.get_joystick_buttons(getattr(glfw, 'JOYSTICK_{0}'.format(i + 1)))
+            offset = getattr(pyxel, 'GAMEPAD_{0}_A'.format(i + 1))
 
             for j in range(count):
                 action = states[j]
                 button = offset + j
 
                 if action == glfw.PRESS:
+                    # print(f"Button: {button} pressed")
                     self._key_state[button] = pyxel.frame_count
                 elif action == glfw.RELEASE:
+                    # print(f"Button: {button} released")
                     if self._key_state.get(button) == pyxel.frame_count:
                         self._key_state[button] = -pyxel.frame_count - 1
                     else:
