@@ -447,7 +447,7 @@ class App:
     def _update_gamepad(self):
         for i in range(4):
             states, count = glfw.get_joystick_buttons(getattr(glfw, 'JOYSTICK_{0}'.format(i + 1)))
-            offset = getattr(pyxel, 'GAMEPAD_{0}_A'.format(i + 1))
+            offset = getattr(pyxel, 'GAMEPAD_{0}_UP'.format(i + 1))
 
             for j in range(count):
                 action = states[j]
