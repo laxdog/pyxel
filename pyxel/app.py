@@ -273,7 +273,6 @@ class App:
             ct *= 1000 / frame_count
             stats.stats[key] = (cc, nc, tt, ct, callers)
 
-        stats.print_stats(30)
 
     def quit(self):
         glfw.set_window_should_close(self._window, True)
@@ -454,10 +453,8 @@ class App:
                 button = offset + j
 
                 if action == glfw.PRESS:
-                    print(f"Button: {button} pressed")
                     self._key_state[button] = pyxel.frame_count
                 elif action == glfw.RELEASE:
-                    print(f"Button: {button} released")
                     if self._key_state.get(button) == pyxel.frame_count:
                         self._key_state[button] = -pyxel.frame_count - 1
                     else:
